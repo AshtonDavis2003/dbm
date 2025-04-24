@@ -1,6 +1,8 @@
-# run.py ─ entry point from the project root
-import os
-from server import app          # server.py is in the same folder
+# project/back_end/run.py
+from server import app
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    import os
+    port = int(os.getenv("PORT", 8080))
+    # bind to 0.0.0.0 instead of the default 127.0.0.1
+    app.run(host="0.0.0.0", port=port, debug=True)
