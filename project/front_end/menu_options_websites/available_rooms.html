@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Rooms</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<header><h1>Find a Room</h1></header>
+
+<main class="form-page">
+
+    <!-- Preferences form – shown first -->
+    <form class="input-form" id="preference-form">
+        <label class="custom-checkbox">
+            <input type="checkbox" id="pref_kitchen">
+            <span class="checkmark"></span> Wants Kitchen
+        </label>
+        <label class="custom-checkbox">
+            <input type="checkbox" id="pref_private">
+            <span class="checkmark"></span> Wants Private Bathroom
+        </label>
+
+        <button type="button"
+                class="submit-student-button"
+                onclick="findMatches()">Find Matching Rooms</button>
+    </form>
+
+    <!-- Building selector (appears after we know prefs) -->
+    <div id="building-select" style="display:none">
+        <button class="building-button" onclick="showRooms('east')">Maples East</button>
+        <button class="building-button" onclick="showRooms('south')">Maples South</button>
+        <button class="building-button" onclick="showRooms('west')">Maples West</button>
+    </div>
+
+    <!-- Room tables (filled dynamically) -->
+    <div id="room-views">
+
+        <div class="assignment-table" id="east" style="display:none">
+            <h2>Maples East</h2>
+            <table><thead><tr><th>Available Room #</th></tr></thead><tbody></tbody></table>
+            <button onclick="goBack()" class="back-button">Back</button>
+        </div>
+
+        <div class="assignment-table" id="south" style="display:none">
+            <h2>Maples South</h2>
+            <table><thead><tr><th>Available Room #</th></tr></thead><tbody></tbody></table>
+            <button onclick="goBack()" class="back-button">Back</button>
+        </div>
+
+        <div class="assignment-table" id="west" style="display:none">
+            <h2>Maples West</h2>
+            <table><thead><tr><th>Available Room #</th></tr></thead><tbody></tbody></table>
+            <button onclick="goBack()" class="back-button">Back</button>
+        </div>
+
+    </div>
+
+    <a href="../functions" class="back-to-menu-button">Back to Menu</a>
+</main>
+
+<!-- ─────────────────────────────  JS  ───────────────────────────── -->
+<script>
+let matches = {};          // filled by the API
+
+function findMatches() {
+    // read check-boxes → 0/1 flags
+    const wantsKitchen  = document.getElementById("pref_kitchen").checked ? 1 : 0;
+    const wantsPrivate  = document.getElementById("pref_private").checked ? 1 : 0;
+
+    fetch(`/api/available_rooms?wants_kitchen=${wantsKitchen}&wants_private=${wantsPrivate}`)
+      .then(r => r.json())
+      .then(json => {
+          matches = json;                         // save for later clicks
+          document.getElementById("preference-form").style.display = "none";
+          document.getElementById("building-select").style.display  = "flex";
+      })
+      .catch(err => alert("Could not load rooms: " + err));
+}
+
+function showRooms(buildingKey) {
+    document.getElementById("building-select").style.display = "none";
+    const section = document.getElementById(buildingKey);
+    section.style.display = "block";
+
+    // populate table
+    const tbody = section.querySelector("tbody");
+    tbody.innerHTML = "";
+
+    (matches[buildingKey] || []).forEach(room => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${room}</td>`;
+        tbody.appendChild(tr);
+    });
+
+    if ((matches[buildingKey] || []).length === 0) {
+        tbody.innerHTML = `<tr><td>No matching rooms</td></tr>`;
+    }
+}
+
+function goBack() {
+    document.querySelectorAll(".assignment-table")
+            .forEach(el => el.style.display = "none");
+    document.getElementById("building-select").style.display = "flex";
+}
+</script>
+
+</body>
+</html>

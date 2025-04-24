@@ -1,0 +1,284 @@
+/*Add student*/
+/* === BASE STYLES === */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #b94311;
+    color: white;
+    text-align: center;
+}
+
+header h1 {
+    margin-top: 30px;
+    font-size: 2.2em;
+    color: white;
+}
+
+/* === FORM CONTAINER === */
+.form-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.input-form {
+    background-color: white;
+    color: #b94311;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 100%;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.input-form label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+}
+
+.input-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* === CUSTOM CHECKBOX STYLING === */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 35px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 1em;
+    user-select: none;
+    color: #b94311;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-checkbox .checkmark {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border: 2px solid #b94311;
+    border-radius: 4px;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #b94311;
+}
+
+.custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* === SUBMIT BUTTON === */
+.submit-student-button {
+    background-color: #b94311;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 250px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.submit-student-button:hover {
+    background-color: #f0f0f0;
+    color: #b94311;
+}
+
+/* === BACK TO MENU LINK === */
+.back-to-menu-button {
+    background-color: white;
+    color: #b94311;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 250px;
+    margin-top: 20px;
+    display: inline-block;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-to-menu-button:hover {
+    background-color: #e4e4e4;
+    color: black;
+}
+/*end Add student*/
+/*Add assignment*/
+.assignment-page {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.building-columns {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.building {
+    background-color: white;
+    color: #b94311;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    text-align: center;
+}
+
+.building h2 {
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #b94311;
+    color: white;
+}
+
+td {
+    background-color: #fff8f4;
+}
+
+.assignment-page {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#building-select {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.building-button {
+    background-color: white;
+    color: #b94311;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.building-button:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.assignment-table {
+    background-color: white;
+    color: #b94311;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.assignment-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.assignment-table th, .assignment-table td {
+    border: 1px solid #ffffff;
+    padding: 8px;
+}
+
+.assignment-table th {
+    background-color: #b94311;
+    color: white;
+}
+
+.assignment-table td {
+    background-color: #fff8f4;
+}
+
+.back-button {
+    margin-top: 20px;
+    background-color: #b94311;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.back-to-menu-button {
+    background-color: white;
+    color: #b94311;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-to-menu-button:hover {
+    background-color: #e4e4e4;
+    color: black;
+}
+

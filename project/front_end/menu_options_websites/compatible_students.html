@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compatible Roommates</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<header><h1>Find Compatible Roommates</h1></header>
+
+<main class="form-page">
+
+    <!-- Preferences form -->
+    <form class="input-form" id="prefForm">
+        <label class="custom-checkbox">
+            <input type="checkbox" id="pref_ac">
+            <span class="checkmark"></span> Wants Air-Conditioning
+        </label>
+        <label class="custom-checkbox">
+            <input type="checkbox" id="pref_dining">
+            <span class="checkmark"></span> Wants Dining
+        </label>
+        <label class="custom-checkbox">
+            <input type="checkbox" id="pref_kitchen">
+            <span class="checkmark"></span> Wants Kitchen
+        </label>
+        <label class="custom-checkbox">
+            <input type="checkbox" id="pref_private">
+            <span class="checkmark"></span> Wants Private Bathroom
+        </label>
+
+        <button type="button"
+                class="submit-student-button"
+                onclick="findMatches()">Find Matches</button>
+    </form>
+
+    <!-- Results table -->
+    <div class="assignment-table" id="results" style="display:none">
+        <h2>Compatible Roommates</h2>
+        <table>
+            <thead><tr><th>Name</th><th>Student ID</th></tr></thead>
+            <tbody></tbody>
+        </table>
+        <button onclick="goBack()" class="back-button">Back</button>
+    </div>
+
+    <a href="../functions" class="back-to-menu-button">Back to Menu</a>
+</main>
+
+<!-- ───────────────────────────── JS ───────────────────────────── -->
+<script>
+function findMatches() {
+    // translate check-boxes → 0/1 query params
+    const params = new URLSearchParams({
+        wants_ac:       document.getElementById("pref_ac").checked ? 1 : 0,
+        wants_dining:   document.getElementById("pref_dining").checked ? 1 : 0,
+        wants_kitchen:  document.getElementById("pref_kitchen").checked ? 1 : 0,
+        wants_private:  document.getElementById("pref_private").checked ? 1 : 0,
+    });
+
+    fetch(`/api/compatible_students?${params.toString()}`)
+      .then(r => r.json())
+      .then(list => {
+          const tbody = document.querySelector("#results tbody");
+          tbody.innerHTML = "";
+
+          if (list.length === 0) {
+              tbody.innerHTML = "<tr><td colspan='2'>No matches found</td></tr>";
+          } else {
+              list.forEach(s => {
+                  const tr = document.createElement("tr");
+                  tr.innerHTML = `<td>${s.Name}</td><td>${s.StudentId}</td>`;
+                  tbody.appendChild(tr);
+              });
+          }
+
+          document.getElementById("prefForm").style.display = "none";
+          document.getElementById("results").style.display  = "block";
+      })
+      .catch(err => alert("Error fetching matches: " + err));
+}
+
+function goBack() {
+    document.getElementById("results").style.display  = "none";
+    document.getElementById("prefForm").style.display = "block";
+}
+</script>
+
+</body>
+</html>

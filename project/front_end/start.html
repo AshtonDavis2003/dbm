@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Roommate Finder</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="centered-body">
+
+    <audio id="click-sound" src="/buttonnoise.mp3" preload="auto"></audio>
+
+    <div class="center-container">
+        <h1>Welcome to Roommate Finder</h1>
+        <a href="/functions" class="start-button" onclick="playClickSound(event)">Start</a>
+    </div>
+
+    <script>
+        function playClickSound(event) {
+            event.preventDefault(); // stop navigation
+            const sound = document.getElementById("click-sound");
+            sound.currentTime = 0;
+
+            const link = event.currentTarget.getAttribute("href");
+
+            sound.play().catch(err => {
+                console.warn("Sound failed:", err.message);
+                window.location.href = link;
+                return;
+            });
+
+            setTimeout(() => {
+                window.location.href = link;
+            }, 150); // adjust for sound timing
+        }
+    </script>
+
+</body>
+</html>

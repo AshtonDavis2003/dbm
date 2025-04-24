@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+    <link rel="stylesheet" href="/style2.css">
+</head>
+<body>
+
+<header>
+    <h1>Add a New Student</h1>
+</header>
+
+<main class="form-page">
+    <form action="/submit_student" method="POST" class="input-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter full name" required>
+
+        <label class="custom-checkbox">
+            <input type="checkbox" name="ac">
+            <span class="checkmark"></span>
+            Wants Air Conditioning
+        </label>
+
+        <label class="custom-checkbox">
+            <input type="checkbox" name="dining">
+            <span class="checkmark"></span>
+            Wants Dining
+        </label>
+
+        <label class="custom-checkbox">
+            <input type="checkbox" name="kitchen">
+            <span class="checkmark"></span>
+            Wants Kitchen
+        </label>
+
+        <label class="custom-checkbox">
+            <input type="checkbox" name="private">
+            <span class="checkmark"></span>
+            Wants Private Bathroom
+        </label>
+
+        <button type="submit" class="submit-student-button">Submit</button>
+    </form>
+
+    <a href="/functions" class="back-to-menu-button">Back to Menu</a>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View All Rooms</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<header>
+    <h1>View All Rooms</h1>
+</header>
+
+<main class="form-page">
+
+    <!-- Building selector is now shown by default -->
+    <div id="building-select" style="display:flex">
+        <button class="building-button" onclick="showRooms('east')">Maples East</button>
+        <button class="building-button" onclick="showRooms('south')">Maples South</button>
+        <button class="building-button" onclick="showRooms('west')">Maples West</button>
+    </div>
+
+    <!-- Live room tables -->
+    <div id="room-views">
+
+        <div class="assignment-table" id="east" style="display:none">
+            <h2>Maples East</h2>
+            <table>
+                <thead><tr><th>Room Number</th><th>Beds Available</th></tr></thead>
+                <tbody></tbody>
+            </table>
+            <button onclick="goBack()" class="back-button">Back</button>
+        </div>
+
+        <div class="assignment-table" id="south" style="display:none">
+            <h2>Maples South</h2>
+            <table>
+                <thead><tr><th>Room Number</th><th>Beds Available</th></tr></thead>
+                <tbody></tbody>
+            </table>
+            <button onclick="goBack()" class="back-button">Back</button>
+        </div>
+
+        <div class="assignment-table" id="west" style="display:none">
+            <h2>Maples West</h2>
+            <table>
+                <thead><tr><th>Room Number</th><th>Beds Available</th></tr></thead>
+                <tbody></tbody>
+            </table>
+            <button onclick="goBack()" class="back-button">Back</button>
+        </div>
+
+    </div>
+
+    <a href="../functions" class="back-to-menu-button">Back to Menu</a>
+</main>
+
+<!-- ─────────────────────────────  JavaScript  ───────────────────────────── -->
+<script>
+function showRooms(buildingKey) {
+    // hide selector, reveal chosen building section
+    document.getElementById("building-select").style.display = "none";
+    const section = document.getElementById(buildingKey);
+    section.style.display = "block";
+
+    // fetch live room list
+    fetch(`/api/rooms?building=${buildingKey}`)
+      .then(r => r.json())
+      .then(list => {
+          const tbody = section.querySelector("tbody");
+          tbody.innerHTML = "";                 // clear previous rows
+          list.forEach(r => {
+              const tr = document.createElement("tr");
+              tr.innerHTML = `
+                  <td>${r.RoomNumber}</td>
+                  <td>${r.BedsAvailable}</td>`;
+              tbody.appendChild(tr);
+          });
+      })
+      .catch(err => alert("Failed to load rooms: " + err));
+}
+
+function goBack() {
+    document.querySelectorAll(".assignment-table")
+            .forEach(el => el.style.display = "none");
+    document.getElementById("building-select").style.display = "flex";
+}
+</script>
+
+</body>
+</html>

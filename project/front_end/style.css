@@ -1,0 +1,99 @@
+/* === HOMEPAGE CENTERING === */
+body.centered-body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #b94311;
+    color: white;
+    text-align: center;
+}
+
+/* === CENTERED CONTAINER FOR HOMEPAGE === */
+.center-container {
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.center-container h1 {
+    color: #b94311;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+/* === HOMEPAGE START BUTTON === */
+.start-button {
+    display: inline-block;
+    background-color: #b94311;    /* orange background */
+    color: white;                 /* white text */
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.start-button:hover {
+    background-color: #c25d31;
+}
+
+/* === FUNCTION BUTTONS (functions.html) === */
+.function-button {
+    display: inline-block;
+    background-color: white;       /* white background */
+    color: #b94311;                /* orange text */
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.function-button:hover {
+    background-color: #c25d31;
+    color: white;
+}
+
+/* === FUNCTIONS PAGE WRAPPER === */
+.function-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* === GRID LAYOUT === */
+.function-grid {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.function-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* === BACK BUTTON === */
+.back-button {
+    margin-top: 30px;
+}

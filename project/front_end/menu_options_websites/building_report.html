@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Building Report</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<header><h1>Building Report</h1></header>
+
+<main class="form-page">
+    <div class="assignment-table">
+        <table id="report-table">
+            <thead>
+                <tr>
+                    <th>Building</th>
+                    <th>Total Rooms</th>
+                    <th>Total Bedrooms</th>
+                    <th>Rooms w/ Space</th>
+                    <th>Bedrooms Available</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <p id="campus-summary"
+           style="margin-top:20px;font-weight:bold;font-size:1.2em">
+            Total Bedrooms Available on Campus:
+            <span style="color:#b94311;">0</span>
+        </p>
+    </div>
+
+    <a href="../functions" class="back-to-menu-button">Back to Menu</a>
+</main>
+
+<!-- ─────────────────────────────  JS  ───────────────────────────── -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("/api/building_report")
+      .then(r => r.json())
+      .then(({rows, campus_total}) => {
+          const tbody = document.querySelector("#report-table tbody");
+          rows.forEach(r => {
+              const tr = document.createElement("tr");
+              tr.innerHTML = `
+                <td>${r.Building}</td>
+                <td>${r.TotalRooms}</td>
+                <td>${r.TotalBeds}</td>
+                <td>${r.RoomsWithSpace}</td>
+                <td>${r.BedsAvailable}</td>`;
+              tbody.appendChild(tr);
+          });
+
+          // campus total
+          document.querySelector("#campus-summary span")
+                  .textContent = campus_total;
+      })
+      .catch(err => alert("Failed to load building report: " + err));
+});
+</script>
+
+</body>
+</html>

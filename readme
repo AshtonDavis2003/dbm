@@ -1,0 +1,18 @@
+This project was created by Ashton Davis (010996388) and Lauren Cassels ()
+
+langauge: python
+built on: vscode
+operating system designed on: windows 11
+tested on: a linux operating system through turing and regular compiler
+
+databse software: SQLite
+
+To execute program please read the following steps:
+
+1.) cd project
+
+2.) cd back_end
+
+3.) python run.py
+
+*if db needs to be cleared just use : del database.db

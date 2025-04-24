@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room Assignment</title>
+    <link rel="stylesheet" href="/style2.css">
+</head>
+<body>
+
+<header>
+    <h1>Room Assignment</h1>
+</header>
+
+<main class="form-page">
+    <!-- Step 1: Enter / verify student name -->
+    <form class="input-form" id="nameForm" onsubmit="event.preventDefault(); checkAndAssign();">
+        <label for="student_name">Student Name:</label>
+        <input type="text" id="student_name" placeholder="Enter student name" required>
+        <button type="submit" class="submit-student-button">Assign Me a Room</button>
+    </form>
+
+    <!-- Result message (hidden at first) -->
+    <div id="resultBox" style="display:none;" class="assignment-table">
+        <h2 id="resultTitle"></h2>
+        <p id="resultText"></p>
+        <button class="back-button" onclick="resetForm()">Assign another student</button>
+    </div>
+
+    <a href="/functions" class="back-to-menu-button">Back to Menu</a>
+</main>
+
+<script>
+    async function checkAndAssign() {
+        const name = document.getElementById("student_name").value.trim();
+        if (!name) return;
+
+        // 1. Make sure the student exists
+        const verify = await fetch(`/check_student?name=${encodeURIComponent(name)}`);
+        const verifyData = await verify.json();
+        if (!verifyData.exists) {
+            alert("Student not found.");
+            return;
+        }
+
+        // 2. Ask the server to assign a room (exact or best match)
+        const resp = await fetch("/assign_room", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name })
+        });
+        if (!resp.ok) {
+            const errText = await resp.text();
+            alert(`Server error: ${errText}`);
+            return;
+        }
+        const msg = await resp.text();
+
+        // 3. Show the message box
+        document.getElementById("nameForm").style.display = "none";
+        document.getElementById("resultTitle").textContent = "Assignment Result";
+        document.getElementById("resultText").textContent = msg;
+        document.getElementById("resultBox").style.display = "block";
+    }
+
+    function resetForm() {
+        document.getElementById("resultBox").style.display = "none";
+        document.getElementById("nameForm").style.display = "block";
+        document.getElementById("student_name").value = "";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Assignments</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<header>
+    <h1>Room Assignments</h1>
+</header>
+
+<main class="assignment-page">
+    <!-- Building selector -->
+    <div id="building-select">
+        <button class="building-button" onclick="showAssignments('east')">Maples East</button>
+        <button class="building-button" onclick="showAssignments('south')">Maples South</button>
+        <button class="building-button" onclick="showAssignments('west')">Maples West</button>
+    </div>
+
+    <!-- Assignment tables (initially empty) -->
+    <div id="assignment-views">
+
+        <div class="assignment-table" id="east"  style="display:none">
+            <h2>Maples East</h2>
+            <table><thead><tr>
+                <th>Student Name</th><th>ID</th><th>Room</th>
+            </tr></thead><tbody></tbody></table>
+            <button onclick="goBack()" class="back-button">Back</button>
+        </div>
+
+        <div class="assignment-table" id="south" style="display:none">
+            <h2>Maples South</h2>
+            <table><thead><tr>
+                <th>Student Name</th><th>ID</th><th>Room</th>
+            </tr></thead><tbody></tbody></table>
+            <button onclick="goBack()" class="back-button">Back</button>
+        </div>
+
+        <div class="assignment-table" id="west" style="display:none">
+            <h2>Maples West</h2>
+            <table><thead><tr>
+                <th>Student Name</th><th>ID</th><th>Room</th>
+            </tr></thead><tbody></tbody></table>
+            <button onclick="goBack()" class="back-button">Back</button>
+        </div>
+
+    </div>
+
+    <a href="../functions" class="back-to-menu-button">Back to Menu</a>
+</main>
+
+<script>
+function showAssignments(buildingKey) {
+    // hide selector, reveal the chosen table
+    document.getElementById("building-select").style.display = "none";
+    const section = document.getElementById(buildingKey);
+    section.style.display = "block";
+
+    // pull live rows from the Flask API
+    fetch(`/api/assignments?building=${buildingKey}`)
+      .then(r => r.json())
+      .then(data => {
+          const tbody = section.querySelector("tbody");
+          tbody.innerHTML = "";               // clear previous rows
+          data.forEach(r => {
+              const tr = document.createElement("tr");
+              tr.innerHTML = `
+                  <td>${r.Name}</td>
+                  <td>${r.StudentId}</td>
+                  <td>${r.RoomNumber}</td>`;
+              tbody.appendChild(tr);
+          });
+      })
+      .catch(err => alert("Failed to load assignments: " + err));
+}
+
+function goBack() {
+    document.getElementById("building-select").style.display = "flex";
+    document.querySelectorAll(".assignment-table")
+            .forEach(el => el.style.display = "none");
+}
+</script>
+
+</body>
+</html>

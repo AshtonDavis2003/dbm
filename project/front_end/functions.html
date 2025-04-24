@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Functions - Roommate Finder</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<audio id="click-sound" src="/buttonnoise.mp3" preload="auto"></audio>
+
+<header>
+    <h1>Options</h1>
+</header>
+
+<main class="function-page">
+    <div class="function-grid">
+        <div class="function-column">
+            <a href="/add_student" class="function-button" onclick="playClickSound(event)">1. Add Student</a>
+            <a href="/add_assignment" class="function-button" onclick="playClickSound(event)">2. Add Assignment</a>
+            <a href="/view_assignments" class="function-button" onclick="playClickSound(event)">3. View Assignments</a>
+            <a href="/view_rooms" class="function-button" onclick="playClickSound(event)">4. View All Rooms</a>
+        </div>
+        <div class="function-column">
+            <a href="/available_rooms" class="function-button" onclick="playClickSound(event)">5. View Available Rooms</a>
+            <a href="/compatible_students" class="function-button" onclick="playClickSound(event)">6. Compatible Roommates</a>
+            <a href="/building_report" class="function-button" onclick="playClickSound(event)">7. Building Report</a>
+            <a href="/bonus_query" class="function-button" onclick="playClickSound(event)">8. Who has viewed what</a>
+        </div>
+    </div>
+
+    <a href="/start" class="function-button back-button" onclick="playClickSound(event)">Back to Home</a>
+</main>
+
+<script>
+    function playClickSound(event) {
+        event.preventDefault(); // Prevent link from immediately navigating
+        const sound = document.getElementById("click-sound");
+        const link = event.currentTarget.getAttribute("href");
+
+        sound.currentTime = 0;
+        sound.play().catch(err => {
+            console.warn("Sound error:", err.message);
+            window.location.href = link; // fallback if sound fails
+            return;
+        });
+
+        // Delay navigation slightly to allow sound to play
+        setTimeout(() => {
+            window.location.href = link;
+        }, 150);
+    }
+</script>
+
+</body>
+</html>
